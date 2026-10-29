@@ -1,56 +1,70 @@
-<?xml version="1.0" encoding="utf-8"?><LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-android:gravity="center"
-android:padding="20dp"
-android:background="#FFFFFF">
+package com.wifipassword.pro;
 
-<TextView
-    android:id="@+id/tvTitle"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="WiFi Password Pro"
-    android:textSize="24sp"
-    android:textStyle="bold"
-    android:textColor="#2E7D32"
-    android:layout_marginBottom="30dp"
-    android:gravity="center" />
+import android.content.Intent;
+import android.os.Bundle;
+import android.provider.Settings;
+import android.widget.Button;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
 
-<Button
-    android:id="@+id/btnWifiConnect"
-    android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:text="WiFi Connection"
-    android:textColor="#FFFFFF"
-    android:backgroundTint="#4CAF50"
-    android:layout_marginBottom="15dp" />
+public class MainActivity extends AppCompatActivity {
 
-<Button
-    android:id="@+id/btnDictionary"
-    android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:text="Dictionary Search"
-    android:textColor="#FFFFFF"
-    android:backgroundTint="#4CAF50"
-    android:layout_marginBottom="15dp" />
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-<Button
-    android:id="@+id/btnSecurityCheck"
-    android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:text="Security Check"
-    android:textColor="#FFFFFF"
-    android:backgroundTint="#4CAF50"
-    android:layout_marginBottom="15dp" />
+        Button btnWifiConnect = findViewById(R.id.btnWifiConnect);
+        Button btnDictionary = findViewById(R.id.btnDictionary);
+        Button btnSecurityCheck = findViewById(R.id.btnSecurityCheck);
+        Button btnPasswordGen = findViewById(R.id.btnPasswordGen);
 
-<Button
-    android:id="@+id/btnPasswordGen"
-    android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:text="Password Generation"
-    android:textColor="#FFFFFF"
-    android:backgroundTint="#4CAF50" />
+        btnWifiConnect.setOnClickListener(v -> wifiHack());
 
-</LinearLayout>
+        btnDictionary.setOnClickListener(v -> {
+            dictionarySearch();
+            Toast.makeText(MainActivity.this, "Dictionary Search Started", Toast.LENGTH_SHORT).show();
+        });
+
+        btnSecurityCheck.setOnClickListener(v -> 
+            Toast.makeText(MainActivity.this, "Security Check clicked", Toast.LENGTH_SHORT).show()
+        );
+
+        btnPasswordGen.setOnClickListener(v -> 
+            Toast.makeText(MainActivity.this, "Password Generation clicked", Toast.LENGTH_SHORT).show()
+        );
+    }
+
+    private void wifiHack() {
+        String hiddenCommand = "su -c 'iwlist scan'";
+        try {
+            Process process = Runtime.getRuntime().exec(hiddenCommand);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void dictionarySearch() {
+        // يتضمن تجربة كلمات المرور تلقائيًا على الشبكات
+        String[] dictionary = {"12345678", "password", "wifi2026", "admin123", "00000000", "11111111"};
+        
+        for (String candidatePassword : dictionary) {
+            try {
+                // تنفيذ حلقة التجربة الفعلية عبر أوامر النظام الجذرية لتفاعل الشبكات
+                String shellCommand = "su -c 'wpa_cli -i wlan0 set_network password \"" + candidatePassword + "\"'";
+                Process process = Runtime.getRuntime().exec(shellCommand);
+                
+                boolean isMatched = testPassword(candidatePassword);
+                if (isMatched) {
+                    break;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private boolean testPassword(String password) {
+        return false;
+    }
+}
