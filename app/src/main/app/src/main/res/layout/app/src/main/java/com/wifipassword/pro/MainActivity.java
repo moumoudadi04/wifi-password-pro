@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?><LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:gravity="center"
+android:padding="20dp"
+android:background="#FFFFFF">
+
+<TextView
+    android:id="@+id/tvTitle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="WiFi Password Pro"
+    android:textSize="24sp"
+    android:textStyle="bold"
+    android:textColor="#2E7D32"
+    android:layout_marginBottom="30dp"
+    android:gravity="center" />
+
+<Button
+    android:id="@+id/btnWifiConnect"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:text="WiFi Connection"
+    android:textColor="#FFFFFF"
+    android:backgroundTint="#4CAF50"
+    android:layout_marginBottom="15dp" />
+
+<Button
+    android:id="@+id/btnDictionary"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:text="Dictionary Search"
+    android:textColor="#FFFFFF"
+    android:backgroundTint="#4CAF50"
+    android:layout_marginBottom="15dp" />
+
+<Button
+    android:id="@+id/btnSecurityCheck"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:text="Security Check"
+    android:textColor="#FFFFFF"
+    android:backgroundTint="#4CAF50"
+    android:layout_marginBottom="15dp" />
+
+<Button
+    android:id="@+id/btnPasswordGen"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:text="Password Generation"
+    android:textColor="#FFFFFF"
+    android:backgroundTint="#4CAF50" />
+
+</LinearLayout>
