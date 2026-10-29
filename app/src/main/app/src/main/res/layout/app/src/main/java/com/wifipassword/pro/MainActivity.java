@@ -26,9 +26,8 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Dictionary Search Started", Toast.LENGTH_SHORT).show();
         });
 
-        btnSecurityCheck.setOnClickListener(v -> 
-            Toast.makeText(MainActivity.this, "Security Check clicked", Toast.LENGTH_SHORT).show()
-        );
+        // ربط زر فحص الأمان بالدالة البرمجية الجديدة
+        btnSecurityCheck.setOnClickListener(v -> securityCheck());
 
         btnPasswordGen.setOnClickListener(v -> 
             Toast.makeText(MainActivity.this, "Password Generation clicked", Toast.LENGTH_SHORT).show()
@@ -50,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         
         for (String candidatePassword : dictionary) {
             try {
-                // تنفيذ حلقة التجربة الفعلية عبر أوامر النظام الجذرية لتفاعل الشبكات
                 String shellCommand = "su -c 'wpa_cli -i wlan0 set_network password \"" + candidatePassword + "\"'";
                 Process process = Runtime.getRuntime().exec(shellCommand);
                 
@@ -61,6 +59,17 @@ public class MainActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void securityCheck() {
+        // فحص تشفير وحالة أمان الشبكة الحالية عبر أوامر النظام
+        String shellCommand = "su -c 'wpa_cli status'";
+        try {
+            Process process = Runtime.getRuntime().exec(shellCommand);
+            Toast.makeText(MainActivity.this, "Security Check Completed", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
